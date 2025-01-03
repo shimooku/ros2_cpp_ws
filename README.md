@@ -138,7 +138,7 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
 
 |ファイル名|内容|
 |-|-|
-|models/ground_plane|https://app.gazebosim.org/fuel/modelsから平面モデルをダウンロード|
+|models/ground_plane|https://app.gazebosim.org/fuel/models から平面モデルをダウンロード|
 |models/wheeled_model|Gazeboクラシックを使って車輪ロボットをデザイン。前方に滑るだけのキャスタ、後方に2輪がある形状。|
 |worlds/wheeled_model_world.sdf|ground_planeとwheeled_modelをincludeしたもの|
 
