@@ -201,7 +201,7 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
 
 1. Termintal#1で以下を実行
    ```
-   ign gazebo --render-engin ogra wheeled_model_world.sdf
+   ign gazebo -v 4 -r --render-engine ogra wheeled_model_world.sdf
    ```
    * 画面左下の▶ボタンを押して動作状態にする (これにも嵌まった...)
 
