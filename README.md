@@ -2,13 +2,67 @@
 
 ## What I have learned about ROS 2
 
-Udemy の **ROS2 C++ Robotics Developer Courses - Using ROS2 in C++** という講座（英語のみ）を通してROS2を学習しています。
+Udemy の **ROS2 C++ Robotics Developer Courses - Using ROS2 in C++** という講座(適当なものとして英語版しか無かった)を通してROS2を学習しています。
 
-最後までこの講座を学習したものの、記憶や頭の整理が不十分であるため、2回目を見始めています。
+最後までこの講座を学習したものの、記憶や頭の整理が不十分なので、2回目を見始めています。
 
-> 自分の手順に自信が持てないため、正常に動作しないとすべてを最初からインストールし直すような有り様で、進捗が非常に悪いです....
+> 自分の手順に自信が持てないため、正常に動作しないとすべてを最初からインストールし直すような有り様で、進捗が悪いのが実情....
 
-以下は、学習時に作成したプログラムの説明（ビルド方法と動かし方を含む）です。
+以下は、学習時に作成したプログラムの説明(ビルド方法と動かし方を含む)です。
+
+> 講師の説明どおりにコーディングしたプログラムです。
+
+## フォルダ構成
+
+```
+udemy_ros2_pkg/
+├── action
+│   └── Navigate.action
+├── CMakeLists.txt
+├── images
+│   ├── 0.png
+│   ├── -15.png
+│   ├── 15.png
+│   ├── -30.png
+│   └── 30.png
+├── include
+│   └── udemy_ros2_pkg
+├── launch
+│   ├── launch_project.launch.py
+│   ├── rpm_node.launch.py
+│   ├── simulation_project.launch.py
+│   └── wheeled_model_simulation.launch.py
+├── models
+│   ├── ground_plane
+│   │   ├── ground_plane.sdf
+│   │   └── model.config
+│   ├── project_robot_model
+│   │   ├── model.config
+│   │   └── model.sdf
+│   └── wheeled_model
+│       ├── model.config
+│       └── model.sdf
+├── package.xml
+├── src
+│   ├── action_client.cpp
+│   ├── action_server.cpp
+│   ├── publisher.cpp
+│   ├── rpm_pub.cpp
+│   ├── service_client.cpp
+│   ├── service_server.cpp
+│   ├── speed_calc.cpp
+│   ├── subscriber.cpp
+│   ├── turn_camera_client.cpp
+│   └── turn_camera_service.cpp
+├── srv
+│   ├── OddEvenCheck.srv
+│   └── TurnCamera.srv
+└── worlds
+    ├── project_world.sdf
+    ├── test_world.sdf
+    └── wheeled_model_world.sdf
+
+```
 
 ## ビルド方法
 
@@ -28,9 +82,9 @@ Udemy の **ROS2 C++ Robotics Developer Courses - Using ROS2 in C++** という�
 * Pub-Subの通信方式と、パラメータのハンドリング
 * Pythonを使った各処理の起動
 
-#### アウトプット
+#### 作成コード
 
-| コード |node | topic |param|内容|
+| コード |node | **topic** |param|内容|
 | ------------- | --|---- |--|--|
 | rpm_pub.cpp |rpm_pub_node |rpm   |rpm_val  |rpm_valをgetして、rpmでpub|
 | speed_calc.cpp |speed_calc_node |rpm, speed   | wheel_radius |rpmをsubして、wheel_radiusをgetし、それらで計算した結果をspeedでpub|
@@ -61,9 +115,9 @@ Udemy の **ROS2 C++ Robotics Developer Courses - Using ROS2 in C++** という�
 * rosidlを使ったサーバ・クライアントの実装
 * Req-Resの通信方式
 
-#### アウトプット
+#### 作成コード
 
-| コード |node | service |内容|
+| コード |node | **service** |内容|
 |--|--|--|--|
 | service_client.cpp |odd_even_check<br/>_client_node |odd_even_check|Userが入力した数値をサーバに非同期Reqし、そのResを表示|
 | service_server.cpp |odd_even_check<br/>_service_node |odd_even_check|Reqで送信された数値の奇数偶数判断をした結果をRes|
@@ -91,9 +145,9 @@ Udemy の **ROS2 C++ Robotics Developer Courses - Using ROS2 in C++** という�
 
 * Actionによる通信 (clientのアクション関数をserverが呼び出す)
 
-#### アウトプット
+#### 作成コード
 
-| コード |node | action |内容|
+| コード |node | **action** |内容|
 |--|--|--|--|
 | action_client.cpp |navigate_action<br/>_client_node |navigate|Userが入力したゴール地点と一緒にfeedback, secceed時のコールバックを指定して、サーバに処理を依頼(Req)。|
 | action_server.cpp |navigate_action<br/>_service_node |navigate|action_clientから送られてきたgoal_positionと、subしているrobot_positionとの距離を計算して、指定距離以下になるまで、その距離をパラメータにしてaction_clientのfeedbackを呼び出す。指定以下になったらsucceedを呼び出す。|
@@ -134,7 +188,7 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
   * Ingition Gazebo
    > VMware上のUbuntuでIgnition Gazeboを表示する際には `--render-engine ogre` オプションを追加する必要あり。これをしないと正常に表示できない。これに嵌まった...
 
-#### アウトプット
+#### 作成コード
 
 |ファイル名|内容|
 |-|-|
@@ -164,7 +218,7 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
 
 * ros_ign_bridgeノードを使ってGazeboとROS2をコネクションし、qrtでignition Gazeboのロボット制御
 * 検証
-  * ROS2の/cnd_velがingnitionの/model/wheeled_model/cmd_velに変換されるのか？
+  * ROS2の/cnd_velがingnitionの/model/wheeled_model/cmd_velに変換されるのか...
   1. コマンドライン操作(1行)でブリッジを起動
     ```
     ros2 run ros_ign_bridge parameter_bridge /model/wheeled_model/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist --ros-args -r /model/wheeled_model/cmd_vel:=cmd_vel
@@ -172,7 +226,7 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
   2. rqtを起動してlinearのx、anmularのzの値を変更してignition Gazeboロボットの動作を確認
     * Plugins -> Topics -> Message Publisher を表示し、Topicから /cmd_vel を選択して表示しておく
 
-#### アウトプット
+#### 作成コード
 
 |ファイル名|内容|
 |-|-|
@@ -196,13 +250,15 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
 
 * sdfデータ拡充によるロボット機能強化
 
-#### アウトプット
+#### 作成コード
 
 |ファイル名|内容|
 |-|-|
 |models/project_robot_model|4輪車にグレードアップ。Gazeboクラシックでデザインしたsdfにcameraセンサー定義を追加。|
 |worlds/project_world.sdf|ground_planeとproject_robot_modelを配置|
 |launch/simulation_project.launch.py|ignition Gazeboとros_ign_bridgeとrqtを同時立上げするスクリプト|
+
+#### 実行方法
 
 * Terminal#1で以下を実行
   ```
@@ -215,3 +271,6 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
     * Plugins -> Visualization -> Image View を選択して表示して、
       * 物体を新規に配置したり、
       * ロボットを動かした時のカメラ映像が変わる事を確認
+
+* 別途開発したmyshでこのロボットをマニュアル制御
+  * 詳しいところは https://github.com/shimooku/mysh の説明に含めました
