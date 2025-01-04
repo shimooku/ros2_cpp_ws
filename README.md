@@ -173,6 +173,7 @@ udemy_ros2_pkg/
 ## Bridge
 
 Gazeboの使い方を通してBridgeを学習
+> Gazebo classicをインストールする前に Ignition Gazebo をインストールしないと Ignition Gazebo が動作しないので要注意 (これにも嵌まった...)
 
 ### 車輪ロボットを動かす#1
 
