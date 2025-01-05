@@ -250,6 +250,11 @@ Ignition Gazeboロボットを動かす (Bridgeは使ってません)
 #### 学習したこと
 
 * sdfデータ拡充によるロボット機能強化
+* 使用した環境
+  * Gazebo classic
+  * Ingition Gazebo
+  * ros-humble-ros-ign
+  * rqt
 
 #### 作成コード
 
